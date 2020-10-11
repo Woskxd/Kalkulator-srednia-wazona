@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Kalkulator</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="kalkulator">
+        <div class="title">{{ title }}</div>
+        <div class="ekran">{{ screen }}</div>
+        <div v-on:click="add_mark(1)" id="butt1" class="butt_dodaj">1</div>
+        <div v-on:click="add_mark(2)" id="butt2" class="butt_dodaj">2</div>
+        <div v-on:click="add_mark(3)" id="butt3" class="butt_dodaj">3</div>
+        <div v-on:click="add_mark(4)" id="butt4" class="butt_dodaj">4</div>
+        <div v-on:click="add_mark(5)" id="butt5" class="butt_dodaj">5</div>
+        <div v-on:click="add_mark(6)" id="butt6" class="butt_dodaj">6</div>
+        <input id="waga" class="add_weight" placeholder="Waga" type="number">
+        <div v-on:click="add_weight" class="send_weight">&#9654</div>
+        <div v-on:click="calculate" class="butt_oblicz">Oblicz</div>
+    </div>
+    <div class="podpisik">Krystian Tomczyk</div>
+    <script>
+    new Vue({
+        el: '#kalkulator',
+        data: {
+            title: 'Kalkulator do średniej ważonej',
+            add: 'Dodaj ocenę',
+            screen: '',
+            mark: '',
+            weight: '',
+            marks: [],
+            weights: [],
+            i: 0,
+            suma: 0,
+            suma2: 0,
+    },
+        methods: {
+            add_mark(ocena){
+                this.mark = ocena;
+                for(var i; i++; i<=6)
+                {
+                    document.getElementById('butt'+i).style.border = '3px solid #424242';
+                    document.getElementById('butt'+i).style.color = '#666666';
+                }
+                document.getElementById('butt'+ocena).style.border = '3px solid lime';
+                document.getElementById('butt'+ocena).style.color = 'white';
+                document.getElementById('waga').focus();
+
+            },
+            add_weight(){
+                if(isNaN(document.getElementById('waga').valueAsNumber)) alert('Wypełnij pole z wagą');
+                //if(this.mark = '') alert('Wybierz ocenę');
+                else{
+                this.weight = document.getElementById('waga').valueAsNumber;
+                this.screen += this.mark + '(' + this.weight + ') ';
+                this.marks[this.i] = this.mark;
+                this.weights[this.i] = this.weight;
+                this.i++;
+
+                document.getElementById('butt'+this.mark).style.border = '3px solid #424242';
+                document.getElementById('butt'+this.mark).style.color = '#666666';
+                document.getElementById('waga').value = "";
+                console.log(this.marks.length)
+                console.log(this.weights.length)
+                }
+            },
+            calculate(){
+                for(i in this.marks)
+                {
+                    this.marks[i] = this.marks[i] * this.weights[i];  
+                    this.suma += this.marks[i];
+                    this.suma2 += this.weights[i];
+                }
+                this.screen = (this.suma / this.suma2);
+                this.screen.toFixed(2);
+                this.marks = [];
+                this.weights = [];
+                this.mark = "";
+                this.weight = "";
+            }
+        }
+    })
+    </script>
+</body>
+</html>
