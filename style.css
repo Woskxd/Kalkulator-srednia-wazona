@@ -1,0 +1,138 @@
+body{
+    background-color: #202020;
+    color: white;
+    font-size: 30px;
+    text-align: center;
+}
+
+#kalkulator
+{
+    margin-right: -50%;
+    margin: 0px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 500px;
+    height: 450px;
+    background-color: #424242;
+    border-radius: 30px;
+    transform: translate(-50%, -50%)
+}
+
+.title
+{
+    background-color: #202020;
+    border: 5px solid #424242;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+    height: 100px;
+    text-align: center;
+    display:table-cell;
+    vertical-align:middle;
+    width: 500px;
+    color: #666666;
+}
+
+.butt_dodaj
+{
+    width: 60px;
+    height: 60px;
+    background-color: #202020;
+    border-radius: 30px;
+    margin: 5px;
+    display: inline-block;
+    font-size: 51px;
+    border: 3px solid #424242;
+    color: #666666;
+}
+
+.butt_dodaj:hover
+{
+    color: white;
+    cursor: pointer;
+}
+
+.butt_oblicz
+{
+    height: 100px;
+    background-color: #202020;
+    margin-top: 100px;
+    border: 5px solid #424242;
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+    font-size: 90px;
+    color: #666666;
+}
+
+.butt_oblicz:hover
+{
+    color: white;
+    cursor: pointer;
+}
+
+.ekran
+{
+    height: 80px;
+    background-color: #202020;
+    border-radius: 30px;
+    margin: 5px;
+    text-align: left;
+    padding: 10px;
+}
+
+.add_weight
+{
+    width: 78%;
+    height: 80px;
+    background-color: #202020;
+    border-radius: 30px;
+    margin: 5px;
+    border: none;
+    text-align: center;
+    font-size: 30px;
+    color: white;
+    float: left;
+}
+
+.send_weight
+{
+    width: 80px;
+    height: 80px;
+    background-color: #202020;
+    border-radius: 30px;
+    margin: 5px;
+    border: none;
+    text-align: center;
+    font-size: 30px;
+    color: #666666;
+    float: left;
+    font-size: 70px;
+}
+
+.send_weight:hover
+{
+    color: white;
+    cursor: pointer;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+  border: none;
+}
+
+.podpisik
+{
+    position: fixed;
+    bottom: 5px;
+    font-size: 20px;
+    text-align: center;
+    width: 100%;
+    color: #424242;
+}
+
+#waga:focus
+{
+    outline: none;
+}
