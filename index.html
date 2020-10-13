@@ -9,15 +9,15 @@
 <body>
     <div id="kalkulator">
         <div class="title">{{ title }}</div>
-        <div class="ekran">{{ screen }}</div>
-        <div v-on:click="add_mark(1)" id="butt1" class="butt_dodaj">1</div>
-        <div v-on:click="add_mark(2)" id="butt2" class="butt_dodaj">2</div>
-        <div v-on:click="add_mark(3)" id="butt3" class="butt_dodaj">3</div>
-        <div v-on:click="add_mark(4)" id="butt4" class="butt_dodaj">4</div>
-        <div v-on:click="add_mark(5)" id="butt5" class="butt_dodaj">5</div>
-        <div v-on:click="add_mark(6)" id="butt6" class="butt_dodaj">6</div>
-        <input id="waga" class="add_weight" placeholder="Waga" type="number">
-        <div v-on:click="add_weight" class="send_weight">&#9654</div>
+        <div class="screen">{{ screen }}</div>
+        <div v-bind:class="{ active_mark: isActive1 }" v-on:click="add_mark(1)" id="butt1" class="butt_dodaj">1</div>
+        <div v-bind:class="{ active_mark: isActive2 }" v-on:click="add_mark(2)" id="butt2" class="butt_dodaj">2</div>
+        <div v-bind:class="{ active_mark: isActive3 }" v-on:click="add_mark(3)" id="butt3" class="butt_dodaj">3</div>
+        <div v-bind:class="{ active_mark: isActive4 }" v-on:click="add_mark(4)" id="butt4" class="butt_dodaj">4</div>
+        <div v-bind:class="{ active_mark: isActive5 }" v-on:click="add_mark(5)" id="butt5" class="butt_dodaj">5</div>
+        <div v-bind:class="{ active_mark: isActive6 }" v-on:click="add_mark(6)" id="butt6" class="butt_dodaj">6</div>
+        <input id="weight" v-model.number="weight" class="add_weight" placeholder="Waga" type="number">
+        <div v-on:click="send_weight" class="send_weight">&#9654</div>
         <div v-on:click="calculate" class="butt_oblicz">Oblicz</div>
     </div>
     <div class="podpisik">Krystian Tomczyk</div>
@@ -25,46 +25,74 @@
     new Vue({
         el: '#kalkulator',
         data: {
+            isActive1: false,
+            isActive2: false,
+            isActive3: false,
+            isActive4: false,
+            isActive5: false,
+            isActive6: false,
             title: 'Kalkulator do średniej ważonej',
-            add: 'Dodaj ocenę',
             screen: '',
             mark: '',
-            weight: '',
             marks: [],
+            weight: '',
             weights: [],
             i: 0,
             suma: 0,
             suma2: 0,
+            answer_on_screen: false,
     },
         methods: {
             add_mark(ocena){
                 this.mark = ocena;
-                for(var i; i++; i<=6)
+                this.isActive1 = false;
+                this.isActive2 = false;
+                this.isActive3 = false;
+                this.isActive4 = false;
+                this.isActive5 = false;
+                this.isActive6 = false;
+                switch (ocena)
                 {
-                    document.getElementById('butt'+i).style.border = '3px solid #424242';
-                    document.getElementById('butt'+i).style.color = '#666666';
+                    case 1:
+                    this.isActive1 = true;
+                    break;
+                    case 2:
+                    this.isActive2 = true;
+                    break;
+                    case 3: 
+                    this.isActive3 = true;
+                    break;
+                    case 4: 
+                    this.isActive4 = true;
+                    break;
+                    case 5: 
+                    this.isActive5 = true;
+                    break;
+                    case 6: 
+                    this.isActive6 = true;
+                    break;
                 }
-                document.getElementById('butt'+ocena).style.border = '3px solid lime';
-                document.getElementById('butt'+ocena).style.color = 'white';
-                document.getElementById('waga').focus();
-
+                document.getElementById('weight').focus();
             },
-            add_weight(){
-                if(isNaN(document.getElementById('waga').valueAsNumber)) alert('Wypełnij pole z wagą');
-                //if(this.mark = '') alert('Wybierz ocenę');
+            send_weight(){
+                if(isNaN(this.weight) || this.weight == "" || this.mark == ''){ alert('Wypełnij poprawnie pola'); document.getElementById('butt'+this.mark).style.color = '#666666';}
                 else{
-                this.weight = document.getElementById('waga').valueAsNumber;
+                if(this.answer_on_screen == true) { this.screen = ""; this.answer_on_screen = false}
                 this.screen += this.mark + '(' + this.weight + ') ';
                 this.marks[this.i] = this.mark;
                 this.weights[this.i] = this.weight;
                 this.i++;
-
-                document.getElementById('butt'+this.mark).style.border = '3px solid #424242';
-                document.getElementById('butt'+this.mark).style.color = '#666666';
-                document.getElementById('waga').value = "";
-                console.log(this.marks.length)
-                console.log(this.weights.length)
-                }
+                this.weight = "";
+                this.mark = "";
+                this.isActive1 = false;
+                this.isActive2 = false;
+                this.isActive3 = false;
+                this.isActive4 = false;
+                this.isActive5 = false;
+                this.isActive6 = false;
+                console.log(this.marks)
+                console.log(this.weights)
+            }
             },
             calculate(){
                 for(i in this.marks)
@@ -74,11 +102,10 @@
                     this.suma2 += this.weights[i];
                 }
                 this.screen = (this.suma / this.suma2);
-                this.screen.toFixed(2);
                 this.marks = [];
                 this.weights = [];
                 this.mark = "";
-                this.weight = "";
+                this.answer_on_screen = true;
             }
         }
     })
