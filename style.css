@@ -35,14 +35,13 @@ body{
 
 .butt_dodaj
 {
-    width: 60px;
-    height: 60px;
+    width: 65px;
+    height: 65px;
     background-color: #202020;
     border-radius: 30px;
     margin: 5px;
     display: inline-block;
     font-size: 51px;
-    border: 3px solid #424242;
     color: #666666;
 }
 
@@ -70,7 +69,7 @@ body{
     cursor: pointer;
 }
 
-.ekran
+.screen
 {
     height: 80px;
     background-color: #202020;
@@ -132,7 +131,12 @@ input::-webkit-inner-spin-button {
     color: #424242;
 }
 
-#waga:focus
+#weight:focus
 {
     outline: none;
+}
+
+.active_mark
+{
+    color: white;
 }
